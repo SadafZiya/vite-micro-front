@@ -1,15 +1,14 @@
-import React, {Suspense, lazy} from "react";
+import React, {Suspense} from "react";
 import ReactDOM from "react-dom";
 import Home from "./Components/Home"
 import NoMatch from "./Components/NotMatch";
 import "./index.css";
 import {Routes, BrowserRouter, Route} from "react-router-dom";
 
-const allPurRouter = async () => await (import("remoteApp/router").then(res => res?.default).catch(err => []))
+const allPurRouter = () => (import("remoteApp/router").then(res => res?.default).catch(err => []))
 console.log(await allPurRouter())
 
-// import allWarRouter from "remoteApp2/router"
-const allWarRouter = async () => await (import("remoteApp2/router").then(res => res?.default).catch(err => []))
+const allWarRouter = () => (import("remoteApp2/router").then(res => res?.default).catch(err => []))
 console.log(await allWarRouter())
 
 const routeMaker = (name, route) => {
