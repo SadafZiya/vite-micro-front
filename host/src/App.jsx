@@ -5,17 +5,14 @@ import NoMatch from "./Components/NotMatch";
 import "./index.css";
 import {Routes, BrowserRouter, Route} from "react-router-dom";
 
-const allPurRouter = () => (import("remoteApp/router").then(res => res?.default).catch(err => []))
-console.log(await allPurRouter())
-
-const allWarRouter = () => (import("remoteApp2/router").then(res => res?.default).catch(err => []))
-console.log(await allWarRouter())
+const allRemoteRouter = () => (import("remoteApp/router").then(res => res?.default).catch(err => []))
+const allRemote2Router = () => (import("remoteApp2/router").then(res => res?.default).catch(err => []))
 
 const routeMaker = (name, route) => {
     if (route.length == 0) return []
     return route.map(item => ({...item, path: `${name}/${item.path}`}))
 }
-const allRouters = [...routeMaker('war', await allWarRouter()), ...routeMaker('pur', await allPurRouter())]
+const allRouters = [...routeMaker('remote', await allRemote2Router()), ...routeMaker('remote2', await allRemoteRouter())]
 const routeComponents = allRouters.map(({exact, path, Component, isPrivate = false}) => {
     if (exact == true)
         return <Route key={path} exact path={path} element={<Component/>}/>
